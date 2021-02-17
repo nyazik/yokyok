@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="SuccessfulPaymentPopup" customModule="yokyok" customModuleProvider="target">
+            <connections>
+                <outlet property="backgroundView" destination="BYO-S1-67h" id="Of0-nN-7X7"/>
+                <outlet property="continueShoppingButton" destination="lvL-Ch-DXm" id="RiZ-Qs-aJs"/>
+                <outlet property="sussessfulView" destination="PLg-OS-ffa" id="Apr-77-ks5"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view alpha="0.65000000000000002" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BYO-S1-67h">
+                    <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PLg-OS-ffa">
+                    <rect key="frame" x="30" y="194" width="354" height="468"/>
+                    <subviews>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_success" translatesAutoresizingMaskIntoConstraints="NO" id="QgQ-4S-OuV">
+                            <rect key="frame" x="117" y="50" width="120" height="120"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="120" id="ESQ-3R-bWn"/>
+                                <constraint firstAttribute="width" constant="120" id="a7F-k1-lhX"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Siparişiniz Başarılıyla Alınmıştır !" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Pj-HV-DEM">
+                            <rect key="frame" x="20" y="200" width="314" height="57.5"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="24"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Siparişlerinizi &quot;Siparişlerim&quot; bölümünden inceleyebilirsiniz." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GFh-Zf-8EF">
+                            <rect key="frame" x="20" y="277.5" width="314" height="48"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lvL-Ch-DXm">
+                            <rect key="frame" x="20" y="355.5" width="314" height="50"/>
+                            <color key="backgroundColor" red="1" green="0.55091810230000005" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="50" id="IMV-cb-ZJs"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
+                            <state key="normal" title="Alışverişe devam et">
+                                <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </state>
+                            <connections>
+                                <action selector="continueShoppingButtonPressed:" destination="-1" eventType="touchUpInside" id="YfB-fj-jtM"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="9Pj-HV-DEM" firstAttribute="leading" secondItem="PLg-OS-ffa" secondAttribute="leading" constant="20" id="1Qw-92-T9j"/>
+                        <constraint firstItem="QgQ-4S-OuV" firstAttribute="top" secondItem="PLg-OS-ffa" secondAttribute="top" constant="50" id="209-V3-Qdw"/>
+                        <constraint firstAttribute="trailing" secondItem="GFh-Zf-8EF" secondAttribute="trailing" constant="20" id="8bb-lm-rJ0"/>
+                        <constraint firstAttribute="trailing" secondItem="lvL-Ch-DXm" secondAttribute="trailing" constant="20" id="9ZC-Af-KYi"/>
+                        <constraint firstItem="lvL-Ch-DXm" firstAttribute="top" secondItem="GFh-Zf-8EF" secondAttribute="bottom" constant="30" id="J7Q-OR-9cT"/>
+                        <constraint firstItem="GFh-Zf-8EF" firstAttribute="leading" secondItem="PLg-OS-ffa" secondAttribute="leading" constant="20" id="JVg-ho-t1a"/>
+                        <constraint firstItem="9Pj-HV-DEM" firstAttribute="top" secondItem="QgQ-4S-OuV" secondAttribute="bottom" constant="30" id="K2U-Wg-1SJ"/>
+                        <constraint firstItem="QgQ-4S-OuV" firstAttribute="centerX" secondItem="PLg-OS-ffa" secondAttribute="centerX" id="KDG-ci-jTu"/>
+                        <constraint firstItem="GFh-Zf-8EF" firstAttribute="top" secondItem="9Pj-HV-DEM" secondAttribute="bottom" constant="20" id="fqz-eU-NE5"/>
+                        <constraint firstItem="lvL-Ch-DXm" firstAttribute="leading" secondItem="PLg-OS-ffa" secondAttribute="leading" constant="20" id="jce-id-3fL"/>
+                        <constraint firstAttribute="trailing" secondItem="9Pj-HV-DEM" secondAttribute="trailing" constant="20" id="wCS-Cg-xiw"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <constraints>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="PLg-OS-ffa" secondAttribute="trailing" constant="30" id="9eT-5i-GoM"/>
+                <constraint firstItem="PLg-OS-ffa" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="150" id="JBr-fJ-JDG"/>
+                <constraint firstAttribute="bottom" secondItem="BYO-S1-67h" secondAttribute="bottom" id="OWK-dY-Dny"/>
+                <constraint firstItem="BYO-S1-67h" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="Y7W-NY-scP"/>
+                <constraint firstItem="BYO-S1-67h" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="dsO-qB-AsH"/>
+                <constraint firstAttribute="trailing" secondItem="BYO-S1-67h" secondAttribute="trailing" id="hQg-fp-Stl"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="bottom" secondItem="PLg-OS-ffa" secondAttribute="bottom" constant="200" id="oxb-cb-rrQ"/>
+                <constraint firstItem="PLg-OS-ffa" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" constant="30" id="vMa-Ge-cHn"/>
+            </constraints>
+            <point key="canvasLocation" x="82.608695652173921" y="70.982142857142847"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="ic_success" width="57" height="57"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
