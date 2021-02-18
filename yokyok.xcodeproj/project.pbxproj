@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		B686CE0D6A09D05D97F39C92 /* Pods_yokyok.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 20C9D0DF816D9A54856CB36F /* Pods_yokyok.framework */; };
+		CD02FF1725DEA608009A5355 /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02FF1625DEA608009A5355 /* SearchVC.swift */; };
+		CD02FF1A25DEAE22009A5355 /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD02FF1925DEAE22009A5355 /* SearchCell.swift */; };
 		CD2FD39B25D7D37400D99F6F /* PreviousOrdersVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2FD39A25D7D37400D99F6F /* PreviousOrdersVC.swift */; };
 		CD2FD39E25D7D43100D99F6F /* PreviousOrderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2FD39D25D7D43100D99F6F /* PreviousOrderCell.swift */; };
 		CD2FD3A325D7DDAC00D99F6F /* PreviousOrderDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD2FD3A225D7DDAC00D99F6F /* PreviousOrderDetailVC.swift */; };
@@ -83,6 +85,8 @@
 		20C9D0DF816D9A54856CB36F /* Pods_yokyok.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yokyok.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		76F475D82DBD7698AF66CDBB /* Pods-yokyok.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yokyok.release.xcconfig"; path = "Target Support Files/Pods-yokyok/Pods-yokyok.release.xcconfig"; sourceTree = "<group>"; };
 		C34B43CFDD53C488DECD2371 /* Pods-yokyok.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yokyok.debug.xcconfig"; path = "Target Support Files/Pods-yokyok/Pods-yokyok.debug.xcconfig"; sourceTree = "<group>"; };
+		CD02FF1625DEA608009A5355 /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		CD02FF1925DEAE22009A5355 /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		CD2FD39A25D7D37400D99F6F /* PreviousOrdersVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousOrdersVC.swift; sourceTree = "<group>"; };
 		CD2FD39D25D7D43100D99F6F /* PreviousOrderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousOrderCell.swift; sourceTree = "<group>"; };
 		CD2FD3A225D7DDAC00D99F6F /* PreviousOrderDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousOrderDetailVC.swift; sourceTree = "<group>"; };
@@ -245,6 +249,7 @@
 				CDB8BA3D25D54BBA00A7DF67 /* CategoryCell.swift */,
 				CDB8BA4025D5616D00A7DF67 /* CategoryDetailCategoryCell.swift */,
 				CDB8BA4725D5719E00A7DF67 /* CategoryDetailCell.swift */,
+				CD02FF1925DEAE22009A5355 /* SearchCell.swift */,
 			);
 			path = CollectionView;
 			sourceTree = "<group>";
@@ -300,6 +305,7 @@
 			children = (
 				CDB8BA2825D4352300A7DF67 /* MainPageVC.swift */,
 				CDBF01EC25DD599B00570493 /* LocationOfCourierVC.swift */,
+				CD02FF1625DEA608009A5355 /* SearchVC.swift */,
 			);
 			path = MainPage;
 			sourceTree = "<group>";
@@ -525,6 +531,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CD2FD3B325D7FA0200D99F6F /* PostMessageResponse.swift in Sources */,
+				CD02FF1A25DEAE22009A5355 /* SearchCell.swift in Sources */,
 				CDA09A4625D91B7D00FFD82E /* EditProfileVC.swift in Sources */,
 				CDA09A9325DA8B0B00FFD82E /* SignOutPopup.swift in Sources */,
 				CDDB206625D411AE0062F5CA /* String+Ext.swift in Sources */,
@@ -560,6 +567,7 @@
 				CDA09A8025D9AB5A00FFD82E /* ChooseAddressBottomPopup.swift in Sources */,
 				CDF634B125DC394F00D09381 /* CartResponse.swift in Sources */,
 				CDB8BA3225D4FDC600A7DF67 /* PopularProductCell.swift in Sources */,
+				CD02FF1725DEA608009A5355 /* SearchVC.swift in Sources */,
 				CDBA64B425D6568A00F96550 /* ProfileVC.swift in Sources */,
 				CD2FD39B25D7D37400D99F6F /* PreviousOrdersVC.swift in Sources */,
 				CD6242B425D6B136001A6A1B /* AddEditAddressVC.swift in Sources */,

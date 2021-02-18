@@ -19,11 +19,14 @@ class PaymentScreenVC: UIViewController {
     @IBOutlet weak var minimumAmountLabel: UILabel!
     @IBOutlet weak var payAtTheDoorButton: UIButton!
     
+    var addressesArray = [AllAddressesDetailResponse]()
+    var defaultAddressID = 0
+    var payAtTheDoor = 0
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(addressTitleLabel)
         setupLayouts()
-        
+        getAddresses()
         addGestureRecognizer(view: addressView)
     }
     
@@ -57,8 +60,8 @@ class PaymentScreenVC: UIViewController {
         addressView.layer.borderWidth = 1
         
         payButton.layer.cornerRadius = payButton.frame.height / 2
+        
     }
-    
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
         dismiss(animated: true, completion: nil)
@@ -67,13 +70,14 @@ class PaymentScreenVC: UIViewController {
     @IBAction func payAtTheDoorButtonPressed(_ sender: UIButton) {
         if payAtTheDoorButton.isSelected {
             payAtTheDoorButton.isSelected = false
-            //defaultAddress = 0
+            payAtTheDoor = 0
         }
         else {
             payAtTheDoorButton.isSelected = true
-            //defaultAddress = 1
+            payAtTheDoor = 1
         }
     }
+    
     @IBAction func makePaymentButtonPressed(_ sender: UIButton) {
         let vc = SuccessfulPaymentPopup(nibName: "SuccessfulPaymentPopup", bundle: nil)
         vc.modalPresentationStyle = .overCurrentContext
@@ -87,9 +91,88 @@ class PaymentScreenVC: UIViewController {
 //        self.present(vc, animated: true, completion: nil)
     }
     
+    //MARK:- NETWORK
+    @objc func getAddresses() {
+        
+        let accessToken = UserDefaults.standard.string(forKey: "Autherization")!
+        
+        // Prepare URL
+        let url = URL(string: BaseURL.baseURL + "address")
+        guard let requestUrl = url else { fatalError() }
+        
+        // Prepare URL Request Object
+        var request = URLRequest(url: requestUrl)
+        request.httpMethod = "GET"
+        
+        // Set HTTP Request Header
+        request.setValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        
+        // Perform HTTP Request
+        let task = URLSession.shared.dataTask(with: request) { (data, response, error) in
+            
+            // Check for Error
+            if let error = error {
+                print("Error took place \(error)")
+                return
+            }
+            
+            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                //print(dataString)
+            }
+            
+            guard let data = data else {return}
+            
+            do{
+                
+                let addressResponse = try JSONDecoder().decode(AllAddressesResponse.self, from: data)
+                
+                if addressResponse.status{
+                    DispatchQueue.main.async { [self] in
+                        if addressResponse.data?.addresses?.isEmpty == false {
+                            self.addressesArray = (addressResponse.data?.addresses)!
+                            
+                            if let defaultAdd = addressesArray.first(where: {$0.id == defaultAddressID}) {
+                               print("defaultAdd\(defaultAdd)")
+                            } else {
+                               // item could not be found
+                            }
+                            
+                            print(self.addressesArray)
+                            self.defaultAddressID = (addressResponse.data?.default_id)!
+                            //self.myAddressedTableView.reloadData()
+                            print(self.defaultAddressID)
+                        } else {
+                            print("data yok")
+                        }
+                    }
+                } else {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        
+                        let alert = UIAlertController(title: "Hata", message: addressResponse.message, preferredStyle: .alert)
+                        let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+                        alert.addAction(ok)
+                        
+                        self.present(alert, animated: true, completion: nil)
+                    }
+                }
+                
+            } catch let jsonError{
+                print("Get address Response = \(jsonError)")
+                DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                    
+                    let alert = UIAlertController(title: "Hata", message: "Sunucu Hatası", preferredStyle: .alert)
+                    let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+                    alert.addAction(ok)
+                    
+                    self.present(alert, animated: true, completion: nil)
+                }
+            }
+            
+        }
+        task.resume()
+    }
     
-    
-//
+
 //    //MARK:- NETWORKING
 //    func getMinimumPrice() {
 //        //addViewsForAnimation()
@@ -164,4 +247,6 @@ class PaymentScreenVC: UIViewController {
 //        task.resume()
 //    }
 //
+//
+    
 }

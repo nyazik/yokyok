@@ -8,8 +8,9 @@
 import UIKit
 import SDWebImage
 
-class MainPageVC: UIViewController {
+class MainPageVC: UIViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var searchProductSearchBar: UISearchBar!
     @IBOutlet weak var bannerCollectionView: UICollectionView!
     @IBOutlet weak var popularProductsCollectionView: UICollectionView!
     @IBOutlet weak var popularCategoriesCollectionView: UICollectionView!
@@ -37,6 +38,9 @@ class MainPageVC: UIViewController {
         
         popularCategoriesCollectionView.dataSource = self
         popularCategoriesCollectionView.delegate = self
+        
+        //searchProductSearchBar.showsScopeBar = true
+        searchProductSearchBar.delegate = self
         
         setupLayouts()
         
@@ -82,6 +86,16 @@ class MainPageVC: UIViewController {
         tabbarView.layer.borderWidth = 1
         tabbarView.layer.borderColor = UIColor.lightGray.cgColor
     }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar)
+        {
+        
+        print("The search text is: '\(searchBar.text!)'")
+        let vc = self.storyboard?.instantiateViewController(identifier: "SearchVC") as! SearchVC
+        vc.searchQuery = searchBar.text!
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+        }
     
     @IBAction func allCategoriesButtonPressed(_ sender: UIButton) {
         let vc = self.storyboard?.instantiateViewController(identifier: "CategoriesVC") as! CategoriesVC

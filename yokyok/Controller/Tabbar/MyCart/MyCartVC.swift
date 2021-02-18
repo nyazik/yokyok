@@ -25,6 +25,7 @@ class MyCartVC: UIViewController {
     @IBOutlet weak var tabbarMyFavouriteView: UIView!
     @IBOutlet weak var tabbarMyProfileView: UIView!
     
+    var totalOrderPrice = 0
     var minimumAmount = 0
     
     var cartArray = [CartProductsDetailResponse]()
@@ -40,6 +41,7 @@ class MyCartVC: UIViewController {
         mayCartTableView.delegate = self
         
         setupLayouts()
+        
         //MARK:- GESTURE RECOGNIZER
         addGestureRecognizer(view: tabbarCategoriesView)
         addGestureRecognizer(view: tabbarMyFavouriteView)
@@ -90,9 +92,16 @@ class MyCartVC: UIViewController {
     }
     
     @IBAction func payButtonPressed(_ sender: UIButton) {
-        let vc = self.storyboard?.instantiateViewController(identifier: "PaymentScreenVC") as! PaymentScreenVC
-        vc.modalPresentationStyle = .fullScreen
-        self.present(vc, animated: false, completion: nil)
+        if totalOrderPrice != 0 {
+            let vc = self.storyboard?.instantiateViewController(identifier: "PaymentScreenVC") as! PaymentScreenVC
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: false, completion: nil)
+        } else {
+            let alert = UIAlertController(title: "Hata", message: "Sepete Boş. ", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        }
     }
     
     func loadItems() {
@@ -117,7 +126,10 @@ class MyCartVC: UIViewController {
         }catch{
             print("error fetching data from DB\(error)")
         }
-        calculateCart()
+        if itemArray.count != 0 {
+            calculateCart()
+        }
+        
     }
     
     func calculateCart() {
@@ -163,8 +175,10 @@ class MyCartVC: UIViewController {
                 let calculateCartResponse = try JSONDecoder().decode(CartResponse.self, from: data)
                 
                 if calculateCartResponse.status{
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [self] in
                         self.total_basket_priceLabel.text = "\((calculateCartResponse.data?.total_basket_price!)!) ₺"
+                        totalOrderPrice = Int((calculateCartResponse.data?.total_basket_price)!) ?? 0
+                        print(totalOrderPrice)
                         self.total_products_priceLabel.text = "\((calculateCartResponse.data?.total_products_price!)!) ₺"
                         self.courierPriceLabel.text = "\((calculateCartResponse.data?.courier_price!)!) ₺"
                         self.minimumAmountLabel.text = "\((calculateCartResponse.data?.address.min_price!)!) ₺"
