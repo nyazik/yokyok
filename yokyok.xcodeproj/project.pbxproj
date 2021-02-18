@@ -58,6 +58,7 @@
 		CDBA64BA25D661CB00F96550 /* MyCartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBA64B925D661CB00F96550 /* MyCartCell.swift */; };
 		CDBA64BE25D6795800F96550 /* MyAddressedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBA64BD25D6795800F96550 /* MyAddressedVC.swift */; };
 		CDBA64C225D679A900F96550 /* MyAddressCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBA64C125D679A900F96550 /* MyAddressCell.swift */; };
+		CDBF01ED25DD599B00570493 /* LocationOfCourierVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDBF01EC25DD599B00570493 /* LocationOfCourierVC.swift */; };
 		CDDB203E25D411610062F5CA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB203D25D411610062F5CA /* AppDelegate.swift */; };
 		CDDB204025D411610062F5CA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CDDB203F25D411610062F5CA /* SceneDelegate.swift */; };
 		CDDB204525D411610062F5CA /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CDDB204325D411610062F5CA /* Main.storyboard */; };
@@ -132,6 +133,7 @@
 		CDBA64B925D661CB00F96550 /* MyCartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCartCell.swift; sourceTree = "<group>"; };
 		CDBA64BD25D6795800F96550 /* MyAddressedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressedVC.swift; sourceTree = "<group>"; };
 		CDBA64C125D679A900F96550 /* MyAddressCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyAddressCell.swift; sourceTree = "<group>"; };
+		CDBF01EC25DD599B00570493 /* LocationOfCourierVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationOfCourierVC.swift; sourceTree = "<group>"; };
 		CDDB203A25D411610062F5CA /* yokyok.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yokyok.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CDDB203D25D411610062F5CA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CDDB203F25D411610062F5CA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -250,7 +252,7 @@
 		CDB8BA3825D549A900A7DF67 /* Tabbar */ = {
 			isa = PBXGroup;
 			children = (
-				CDB8BA2825D4352300A7DF67 /* MainPageVC.swift */,
+				CDBF01EA25DD597200570493 /* MainPage */,
 				CDB8BA4325D5619800A7DF67 /* Category */,
 				CD75A33425D5B71E00CD5FE7 /* FavouriteProductsVC.swift */,
 				CDBA64BC25D6793500F96550 /* Profile */,
@@ -291,6 +293,15 @@
 				CDA09A9125DA8B0A00FFD82E /* SignOutPopup.swift */,
 			);
 			path = Profile;
+			sourceTree = "<group>";
+		};
+		CDBF01EA25DD597200570493 /* MainPage */ = {
+			isa = PBXGroup;
+			children = (
+				CDB8BA2825D4352300A7DF67 /* MainPageVC.swift */,
+				CDBF01EC25DD599B00570493 /* LocationOfCourierVC.swift */,
+			);
+			path = MainPage;
 			sourceTree = "<group>";
 		};
 		CDDB203125D411610062F5CA = {
@@ -533,6 +544,7 @@
 				CDDB206225D411AE0062F5CA /* TextField+Ext.swift in Sources */,
 				CDA09A7D25D9A29E00FFD82E /* PaymentScreenVC.swift in Sources */,
 				CDDB203E25D411610062F5CA /* AppDelegate.swift in Sources */,
+				CDBF01ED25DD599B00570493 /* LocationOfCourierVC.swift in Sources */,
 				CDBA64B725D6616000F96550 /* MyCartVC.swift in Sources */,
 				CD2FD39E25D7D43100D99F6F /* PreviousOrderCell.swift in Sources */,
 				CDB8BA4125D5616D00A7DF67 /* CategoryDetailCategoryCell.swift in Sources */,

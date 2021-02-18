@@ -25,7 +25,7 @@ class AddEditAddressVC: UIViewController {
     var districtDropdownListArray: [String] = []
     var addressTitle = ""
     var address = ""
-    var disrictId = ""
+    var isNewAddress: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,7 +53,6 @@ class AddEditAddressVC: UIViewController {
         configureTextFields(textFields: cityDropDown)
         configureTextFields(textFields: districtDropDown)
         
-        
         addressTextView.layer.cornerRadius = 10
         
         addressTextView.text = "Adres Bilgilerinizi Giriniz"
@@ -63,10 +62,35 @@ class AddEditAddressVC: UIViewController {
         addEditAddressButton.layer.cornerRadius = addEditAddressButton.frame.height / 2
         cityDropDown.optionArray = ["İstanbul"]
         
+        if isNewAddress == false {
+            addEditAddressButton.titleLabel?.text = "Edit Address"
+            addressTitleTextField.text = addressTitle
+            cityDropDown.text = "İstanbul"
+            //districtDropDown.text = disctric
+            addressTextView.text = address
+            
+            self.districtDropDown.didSelect { (text, index, _) in
+                print("District -> Text = \(text) - Index = \(index) - Id = \(self.districtArray[index].id!)")
+                self.districtId = self.districtArray[index].id!
+                print("districtId\(self.districtId)")
+            }
+            
+//            let selectedCityIndex = districtArray.firstIndex{ $0.county_name == cityName }
+//            districtDropDown.selectedIndex = selectedCityIndex
+            print("city index = \(districtDropDown.selectedIndex)")
+            //self.districtId = self.districtArray[districtDropDown.selectedIndex!].id!
+            
+            
+//            let selectedDistrictIndex = districtArray.firstIndex{ $0.county_name == districtId }
+//            districtDropDown.selectedIndex = selectedDistrictIndex
+            print("disctric index = \(districtDropDown.selectedIndex)")
+            //self.districtId = self.districtArray[districtDropDown.selectedIndex].id!
+        }
         
+        //print(BannerCell)
         print(addressTitle)
         print(address)
-        print(disrictId)
+        print(districtId)
     }
     
     
@@ -81,6 +105,7 @@ class AddEditAddressVC: UIViewController {
     }
     
     @IBAction func defaultAddressButtonPressed(_ sender: UIButton) {
+        
         if defaultAddressButton.isSelected {
             defaultAddressButton.isSelected = false
             defaultAddress = 0
@@ -215,7 +240,7 @@ class AddEditAddressVC: UIViewController {
                             self.districtDropDown.didSelect { (text, index, _) in
                                 print("District -> Text = \(text) - Index = \(index) - Id = \(self.districtArray[index].id!)")
                                 self.districtId = self.districtArray[index].id!
-                                
+                                print("districtId\(districtId)")
                                 
                             }
                             //self.configureDropDown()

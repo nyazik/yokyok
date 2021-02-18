@@ -39,6 +39,7 @@ class ProductDetailVC: UIViewController {
         getProductDetail()
         //        print("itemArray\(itemArray)")
         //        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        print("productQuantityStepper\(productQuantityStepper.value)")
     }
     
     func setupLayouts() {
@@ -51,11 +52,12 @@ class ProductDetailVC: UIViewController {
         
         addToCartButton.layer.cornerRadius = addToCartButton.frame.height / 2
         
-        productQuantityStepper.value = 1
+        productQuantityStepper.minimumValue = 1
     }
     
     @IBAction func currentValueOfStepper(_ sender: UIControl) {
         currentStepperValue = Int(productQuantityStepper.value)
+        print(currentStepperValue)
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -67,14 +69,21 @@ class ProductDetailVC: UIViewController {
     }
     
     @IBAction func addToCartButtonPressed(_ sender: UIButton) {
+        if productQuantityStepper.value >= 0 {
+            let addToCart = Cart(context: context)
+            addToCart.product_id = Int32(productID)
+            addToCart.product_quantity = Int32(currentStepperValue)
+            
+            dismiss(animated: true, completion: nil)
+            saveItems()
+            loadItems()
+        } else {
+            let alert = UIAlertController(title: "Hata", message: "Lütfen gerekli alanları seçiniz.", preferredStyle: .alert)
+            let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
+            alert.addAction(ok)
+            self.present(alert, animated: true, completion: nil)
+        }
         
-        let addToCart = Cart(context: context)
-        addToCart.product_id = Int32(productID)
-        addToCart.product_quantity = Int32(currentStepperValue)
-        
-        dismiss(animated: true, completion: nil)
-        saveItems()
-        loadItems()
         
     }
     

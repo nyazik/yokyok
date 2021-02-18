@@ -12,8 +12,8 @@ class CategoryDetailVC: UIViewController {
     
     @IBOutlet weak var categoriesCollectionView: UICollectionView!
     @IBOutlet weak var categoryDetailCollectionView: UICollectionView!
-    
     @IBOutlet weak var categoryTitleLabel: UILabel!
+    
     var isLoadingMoreItems = false
     var lastPage = 0
     var category_id : Int?
@@ -36,10 +36,9 @@ class CategoryDetailVC: UIViewController {
         setupLayouts()
         print(lastPage)
     }
-
+    
     func setupLayouts() {
         categoryTitleLabel.text = titleName
-
     }
     
     @IBAction func backButtonPressed(_ sender: UIButton) {
@@ -53,9 +52,9 @@ class CategoryDetailVC: UIViewController {
         let accessToken = UserDefaults.standard.string(forKey: "Autherization")!
         
         // Prepare URL
-        let url = URL(string: BaseURL.baseURL + "products?category_id=\(category_id!)")
+        let url = URL(string: BaseURL.baseURL + "products?category_id=\(category_id!)&page=\(pageIndex)")
         guard let requestUrl = url else { fatalError() }
-        print("products?category_id=\(category_id!)?page=\(pageIndex)")
+        // print("products?category_id=\(category_id!)&page=\(pageIndex)")
         // Prepare URL Request Object
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "GET"
@@ -81,30 +80,36 @@ class CategoryDetailVC: UIViewController {
             do{
                 
                 let productResponse = try JSONDecoder().decode(ProductResponse.self, from: data)
-
+                
                 if productResponse.status{
                     DispatchQueue.main.async { [self] in
                         if productResponse.data.isEmpty == false {
                             
                             
                             self.lastPage = productResponse.last_page!
-                            self.productsArray = productResponse.data
-                            print(self.productsArray)
+                            
+                            if self.productsArray.isEmpty {
+                                self.productsArray = productResponse.data
+                            } else {
+                                self.productsArray.append(contentsOf: productResponse.data)
+
+                            }
                             self.categoryDetailCollectionView.reloadData()
 
-
+                            
                         } else {
                             print("data yok")
                         }
-//                        self.removeViewsForAnimation()
+
+                        //                        self.removeViewsForAnimation()
                     }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        self.removeViewsForAnimation()
+                        //                        self.removeViewsForAnimation()
                         let alert = UIAlertController(title: "Hata", message: productResponse.message, preferredStyle: .alert)
                         let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
                         alert.addAction(ok)
-
+                        
                         self.present(alert, animated: true, completion: nil)
                     }
                 }
@@ -157,7 +162,7 @@ class CategoryDetailVC: UIViewController {
             do{
                 
                 let categoriesResponse = try JSONDecoder().decode(CategoriesResponse.self, from: data)
-
+                
                 if categoriesResponse.status{
                     DispatchQueue.main.async {
                         if categoriesResponse.data.isEmpty == false {
@@ -169,15 +174,15 @@ class CategoryDetailVC: UIViewController {
                         } else {
                             print("data yok")
                         }
-//                        self.removeViewsForAnimation()
+                        //                        self.removeViewsForAnimation()
                     }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-//                        self.removeViewsForAnimation()
+                        //                        self.removeViewsForAnimation()
                         let alert = UIAlertController(title: "Hata", message: categoriesResponse.message, preferredStyle: .alert)
                         let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
                         alert.addAction(ok)
-
+                        
                         self.present(alert, animated: true, completion: nil)
                     }
                 }
@@ -196,24 +201,24 @@ class CategoryDetailVC: UIViewController {
         }
         task.resume()
     }
-
-//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
-//        print("scrollViewDidScroll")
-//        guard !isLoadingMoreItems else { return }
-//        if categoryDetailCollectionView.contentOffset.y >= categoryDetailCollectionView.contentSize.height - categoryDetailCollectionView.bounds.size.height {
-//
-//            isLoadingMoreItems = true
-//            pageIndex += 1
-//            getProducts()
-//        }
-//    }
-//
-//    func updatePhotosAfterFetching(_ photos: [ProductDataResponse]) {
-//        isLoadingMoreItems = false
-//        self.productsArray.append(contentsOf: photos)
-//        categoryDetailCollectionView.reloadData()
-//    }
-
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        print("scrollViewDidScroll")
+        guard !isLoadingMoreItems else { return }
+        if categoryDetailCollectionView.contentOffset.y >= categoryDetailCollectionView.contentSize.height - categoryDetailCollectionView.bounds.size.height{
+            
+            isLoadingMoreItems = false
+            pageIndex += 1
+            getProducts()
+        }
+    }
+    
+    func updatePhotosAfterFetching(_ product: [ProductDataResponse]) {
+        isLoadingMoreItems = false
+        self.productsArray.append(contentsOf: product)
+        categoryDetailCollectionView.reloadData()
+    }
+    
 }
 
 extension CategoryDetailVC : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
@@ -258,7 +263,10 @@ extension CategoryDetailVC : UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoriesCollectionView {
-            
+            let vc = self.storyboard?.instantiateViewController(identifier: "CategoryDetailVC") as! CategoryDetailVC
+            vc.category_id = (categoriesArray[indexPath.item]?.id)!
+            vc.modalPresentationStyle = .fullScreen
+            self.present(vc, animated: true, completion: nil)
         } else {
             let vc = self.storyboard?.instantiateViewController(identifier: "ProductDetailVC") as! ProductDetailVC
             vc.productID = (productsArray[indexPath.item]?.id)!

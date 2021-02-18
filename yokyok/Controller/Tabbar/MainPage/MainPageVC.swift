@@ -96,6 +96,13 @@ class MainPageVC: UIViewController {
         self.present(vc, animated: false, completion: nil)
     }
     
+    @IBAction func locationOfCourierButtonPressed(_ sender: UIButton) {
+        let vc = self.storyboard?.instantiateViewController(identifier: "LocationOfCourierVC") as! LocationOfCourierVC
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    
     //MARK:- NETWORKING
     func getCategories() {
         //addViewsForAnimation()
@@ -336,7 +343,7 @@ extension MainPageVC : UICollectionViewDataSource, UICollectionViewDelegate, UIC
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView == popularProductsCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "popularCell", for: indexPath) as! PopularProductCell
-            cell.productPriceLabel.text =  productsArray[indexPath.row]?.prices.price
+            cell.productPriceLabel.text = "\((productsArray[indexPath.row]?.prices.price)!) ₺"
             cell.productDescriptionLabel.text = productsArray[indexPath.row]?.title
             cell.productCategoryLabel.text = productsArray[indexPath.row]?.categories
             cell.productImageView.sd_setImage(with: URL(string: BaseURL.PRODUCT_IMAGE_URL + "\(productsArray[indexPath.row]?.photo ?? "default.jpeg")"), completed: nil)

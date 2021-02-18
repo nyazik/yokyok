@@ -207,20 +207,28 @@ extension MyCartVC : UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
+    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
+//        if editingStyle == .delete {
+//            context.delete(itemArray[indexPath.row])
+//            do {
+//              try saveItems()
+//                //tableView.deleteRows(at: [indexPath], with: .automatic)
+//              //tableView.reloadData()
+//            } catch let error as NSError {
+//              print("Could not save. \(error), \(error.userInfo)")
+//            }
+//          }
         
         if editingStyle == .delete {
+            print("Deleted")
             context.delete(itemArray[indexPath.row])
-            do {
-              try saveItems()
-              //tableView.deleteRows(at: [indexPath], with: .automatic)
-              tableView.reloadData()
-            } catch let error as NSError {
-              print("Could not save. \(error), \(error.userInfo)")
-            }
-            
-          }
+            self.itemArray.remove(at: indexPath.row)
+            saveItems()
+//            tableView.deleteRows(at: [indexPath], with: .automatic)
+        }
+        //tableView.reloadData()
+        
         
 //        if editingStyle == .delete {
 //            print("Deleted")

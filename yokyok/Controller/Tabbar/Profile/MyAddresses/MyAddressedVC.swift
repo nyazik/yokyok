@@ -202,7 +202,7 @@ extension MyAddressedVC : UITableViewDataSource, UITableViewDelegate {
         vc.addressID = addressesArray[indexPath.row].id!
         vc.addressTitle = addressesArray[indexPath.row].title!
         vc.address = addressesArray[indexPath.row].address!
-        
+        vc.districtId = addressesArray[indexPath.row].county!
         //vc.titleLabel.text = "Adres Güncelle"
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
