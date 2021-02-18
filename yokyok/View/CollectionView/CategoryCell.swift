@@ -14,8 +14,6 @@ class CategoryCell: UICollectionViewCell {
     @IBOutlet weak var categoryNameLabel: UILabel!
     @IBOutlet weak var categoryQuantityLabel: UILabel!
     
-    var d: NSNumber  = 0.0
-    var b: NSNumber  = 1.0
 
     func configureCell() {
         cellView.layer.cornerRadius = 10

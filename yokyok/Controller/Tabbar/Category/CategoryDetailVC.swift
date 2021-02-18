@@ -247,8 +247,6 @@ extension CategoryDetailVC : UICollectionViewDataSource, UICollectionViewDelegat
             return cell
         }
         
-        
-        
     }
     
     
@@ -263,10 +261,8 @@ extension CategoryDetailVC : UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoriesCollectionView {
-            let vc = self.storyboard?.instantiateViewController(identifier: "CategoryDetailVC") as! CategoryDetailVC
-            vc.category_id = (categoriesArray[indexPath.item]?.id)!
-            vc.modalPresentationStyle = .fullScreen
-            self.present(vc, animated: true, completion: nil)
+            var category_id = (categoriesArray[indexPath.item]?.id)!
+            
         } else {
             let vc = self.storyboard?.instantiateViewController(identifier: "ProductDetailVC") as! ProductDetailVC
             vc.productID = (productsArray[indexPath.item]?.id)!

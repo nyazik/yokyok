@@ -158,7 +158,7 @@ extension CategoriesVC : UICollectionViewDataSource, UICollectionViewDelegate, U
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath) as! CategoryCell
         cell.categoryNameLabel.text = categoriesArray[indexPath.row]?.title
-        cell.categoryQuantityLabel.text = "\(String((categoriesArray[indexPath.row]?.count)!))Ürün"
+        cell.categoryQuantityLabel.text = "\(String((categoriesArray[indexPath.row]?.count)!)) Ürün"
         cell.categoryImageView.sd_setImage(with: URL(string: BaseURL.CATEGORY_IMAGE_URL + "\(categoriesArray[indexPath.row]?.photo ?? "default.jpeg")"), completed: nil)
         cell.configureCell()
         return cell

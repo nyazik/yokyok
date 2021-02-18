@@ -8,7 +8,7 @@
 import UIKit
 import iOSDropDown
 
-class AddEditAddressVC: UIViewController {
+class AddEditAddressVC: UIViewController, UITextFieldDelegate {
     
     @IBOutlet weak var addressTitleTextField: UITextField!
     @IBOutlet weak var cityDropDown: DropDown!
@@ -21,19 +21,23 @@ class AddEditAddressVC: UIViewController {
     var defaultAddress = 0
     var addressID = 0
     var districtId = 0
+    var districtName = "" 
     var districtArray = [CityDataResponse]()
     var districtDropdownListArray: [String] = []
     var addressTitle = ""
     var address = ""
-    var isNewAddress: Bool = false
+    var isNewAddress: Bool = true
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setupLayouts()
         hideKeyboardWhenTappedAround()
+        
+        districtDropDown.delegate = self
         addressTextView.delegate = self
-        getCities()
-
+        
+        getDistricts()
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -54,7 +58,6 @@ class AddEditAddressVC: UIViewController {
         configureTextFields(textFields: districtDropDown)
         
         addressTextView.layer.cornerRadius = 10
-        
         addressTextView.text = "Adres Bilgilerinizi Giriniz"
         addressTextView.textColor = UIColor.lightGray
         addressTextView.padding()
@@ -62,8 +65,9 @@ class AddEditAddressVC: UIViewController {
         addEditAddressButton.layer.cornerRadius = addEditAddressButton.frame.height / 2
         cityDropDown.optionArray = ["İstanbul"]
         
+        
         if isNewAddress == false {
-            addEditAddressButton.titleLabel?.text = "Edit Address"
+            addEditAddressButton.setTitle("Edit Address", for: .normal)
             addressTitleTextField.text = addressTitle
             cityDropDown.text = "İstanbul"
             //districtDropDown.text = disctric
@@ -74,23 +78,24 @@ class AddEditAddressVC: UIViewController {
                 self.districtId = self.districtArray[index].id!
                 print("districtId\(self.districtId)")
             }
-            
-//            let selectedCityIndex = districtArray.firstIndex{ $0.county_name == cityName }
+             
+            self.districtDropDown.text = districtName
+//            let selectedCityIndex = districtArray.firstIndex{ $0.name == districtName }
 //            districtDropDown.selectedIndex = selectedCityIndex
-            print("city index = \(districtDropDown.selectedIndex)")
-            //self.districtId = self.districtArray[districtDropDown.selectedIndex!].id!
+//            print("city index = \(districtDropDown.selectedIndex)")
+            //self.districtId = self.districtArray[districtDropDown.selectedIndex!].id
             
             
 //            let selectedDistrictIndex = districtArray.firstIndex{ $0.county_name == districtId }
 //            districtDropDown.selectedIndex = selectedDistrictIndex
-            print("disctric index = \(districtDropDown.selectedIndex)")
-            //self.districtId = self.districtArray[districtDropDown.selectedIndex].id!
+//            print("disctric index = \(districtDropDown.selectedIndex)")
+//            self.districtId = self.districtArray[districtDropDown.selectedIndex].id!
         }
         
         //print(BannerCell)
         print(addressTitle)
         print(address)
-        print(districtId)
+        print("districtId\(districtId)")
     }
     
     
@@ -115,9 +120,17 @@ class AddEditAddressVC: UIViewController {
             defaultAddress = 1
         }
     }
+    
     @IBAction func addEditButtonPressed(_ sender: UIButton) {
-        addAddress()
-        print("\(districtId)***")
+        
+        if isNewAddress == true {
+            addAddress()
+            print("\(districtId)***")
+        } else {
+            changeAddress()
+            print("\(districtId)***")
+        }
+        
     }
     
     
@@ -192,7 +205,7 @@ class AddEditAddressVC: UIViewController {
     }
     
     //MARK: - Networking
-    func getCities() {
+    func getDistricts() {
 
         let accessToken = UserDefaults.standard.string(forKey: "Autherization")!
         
@@ -287,14 +300,14 @@ class AddEditAddressVC: UIViewController {
         var request = URLRequest(url: requestUrl)
         request.httpMethod = "PUT"
         
-        self.districtDropDown.didSelect { [self] (text, index, _) in
-            print("District -> Text = \(text) - Index = \(index) - Id = \(self.districtArray[index].id!)")
-            self.districtId = self.districtArray[index].id!
+//        self.districtDropDown.didSelect { [self] (text, index, _) in
+//            print("District -> Text = \(text) - Index = \(index) - Id = \(self.districtArray[index].id!)")
+//            self.districtId = self.districtArray[index].id!
         
         //HTTP Request Parameters which will be sent in HTTP Request Body
-        let postString = "title=\(addressTitleTextField.text!)&address=\(addressTextView)&is_default=\(defaultAddress)&city_id=34&county_id=\(districtId)"
+        let postString =  "title=\(addressTitleTextField.text!)&address=\(addressTextView.text!)&is_default=\(defaultAddress)&city_id=34&county_id=\(districtId)"
         
-        //print("title=\(addressTitleTextField.text!)&province_id=\(cityId)&district_id=\(districtId)&details=\(addressTextField.text!)")
+        print("title=\(addressTitleTextField.text!)&address=\(addressTextView)&is_default=\(defaultAddress)&city_id=34&county_id=\(districtId)")
         
         // Set HTTP Request Body
         request.httpBody = postString.data(using: String.Encoding.utf8);
@@ -351,7 +364,6 @@ class AddEditAddressVC: UIViewController {
 }
 
 
-}
 
 extension AddEditAddressVC : UITextViewDelegate {
     func textViewDidBeginEditing(_ textView: UITextView) {

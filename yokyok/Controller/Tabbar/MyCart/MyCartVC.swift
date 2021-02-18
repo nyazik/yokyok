@@ -96,6 +96,7 @@ class MyCartVC: UIViewController {
     }
     
     func loadItems() {
+        
         let request : NSFetchRequest<Cart> = Cart.fetchRequest()
         do{
             itemArray = try context.fetch(request)
@@ -220,15 +221,24 @@ extension MyCartVC : UITableViewDataSource, UITableViewDelegate {
 //            }
 //          }
         
-        if editingStyle == .delete {
-            print("Deleted")
-            context.delete(itemArray[indexPath.row])
-            self.itemArray.remove(at: indexPath.row)
-            saveItems()
+//        if editingStyle == .delete {
+//            print("Deleted")
 //            tableView.deleteRows(at: [indexPath], with: .automatic)
-        }
+//            self.itemArray.remove(at: indexPath.row)
+//            context.delete(itemArray[indexPath.row])
+//            saveItems()
+//        }
         //tableView.reloadData()
         
+        if editingStyle == .delete {
+            context.delete(itemArray[indexPath.row])
+            do {
+              try context.save()
+              tableView.reloadData()
+            } catch let error as NSError {
+              print("Could not save. \(error), \(error.userInfo)")
+            }
+          }
         
 //        if editingStyle == .delete {
 //            print("Deleted")

@@ -29,6 +29,7 @@ class ProfileVC: UIViewController {
     @IBOutlet weak var supportLineView: UIView!
     @IBOutlet weak var aboutUsView: UIView!
     @IBOutlet weak var signOutView: UIView!
+    @IBOutlet weak var topView: UIView!
     
     var photo = ""
     var nameSurname = ""
@@ -124,6 +125,9 @@ class ProfileVC: UIViewController {
         tabbarView.backgroundColor = UIColor.white
         tabbarView.layer.borderWidth = 1
         tabbarView.layer.borderColor = UIColor.lightGray.cgColor
+        
+        topView.layer.borderWidth = 0.3
+        topView.layer.borderColor = UIColor.lightGray.cgColor
     }
 
     

@@ -914,7 +914,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ZVT-oT-teq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3031.884057971015" y="60.9375"/>
+            <point key="canvasLocation" x="2912" y="61"/>
         </scene>
         <!--CategoriesVC-->
         <scene sceneID="8iX-fl-5Dj">
@@ -1450,7 +1450,11 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="i06-SG-02M">
-                                        <rect key="frame" x="358" y="52.5" width="36" height="31.5"/>
+                                        <rect key="frame" x="369" y="55.5" width="25" height="25"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="25" id="OhV-dh-iUH"/>
+                                            <constraint firstAttribute="width" constant="25" id="fRR-LN-5Sl"/>
+                                        </constraints>
                                         <state key="normal" image="ic_heart"/>
                                         <connections>
                                             <action selector="addToFavouriteButtonPressed:" destination="3QA-Bs-flx" eventType="touchUpInside" id="928-sP-7fQ"/>
@@ -1660,31 +1664,31 @@
                                                             <rect key="frame" x="110" y="10" width="274" height="179"/>
                                                             <subviews>
                                                                 <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CKP-3g-jt2">
-                                                                    <rect key="frame" x="0.0" y="0.0" width="274" height="30"/>
+                                                                    <rect key="frame" x="0.0" y="0.0" width="274" height="25"/>
                                                                     <subviews>
                                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="17,50 ₺" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vqd-xd-ljB">
-                                                                            <rect key="frame" x="0.0" y="0.0" width="244" height="30"/>
+                                                                            <rect key="frame" x="0.0" y="0.0" width="249" height="25"/>
                                                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                             <nil key="textColor"/>
                                                                             <nil key="highlightedColor"/>
                                                                         </label>
                                                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_heart" translatesAutoresizingMaskIntoConstraints="NO" id="3RA-SJ-KfW">
-                                                                            <rect key="frame" x="244" y="0.0" width="30" height="30"/>
+                                                                            <rect key="frame" x="249" y="0.0" width="25" height="25"/>
                                                                             <constraints>
-                                                                                <constraint firstAttribute="width" constant="30" id="7FX-em-Hnn"/>
-                                                                                <constraint firstAttribute="height" constant="30" id="DtT-L8-KC4"/>
+                                                                                <constraint firstAttribute="width" constant="25" id="7FX-em-Hnn"/>
+                                                                                <constraint firstAttribute="height" constant="25" id="DtT-L8-KC4"/>
                                                                             </constraints>
                                                                         </imageView>
                                                                     </subviews>
                                                                 </stackView>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="19 L Hayat Su" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="sL3-Xg-2i8">
-                                                                    <rect key="frame" x="0.0" y="32" width="274" height="51.5"/>
+                                                                    <rect key="frame" x="0.0" y="27" width="274" height="55"/>
                                                                     <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
                                                                     <color key="textColor" red="0.60784313729999995" green="0.60784313729999995" blue="0.60784313729999995" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
                                                                 </label>
                                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Temel Gıda, Su" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BIe-CQ-yoD">
-                                                                    <rect key="frame" x="0.0" y="85.5" width="274" height="93.5"/>
+                                                                    <rect key="frame" x="0.0" y="84" width="274" height="95"/>
                                                                     <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                                     <color key="textColor" red="0.72156862749999995" green="0.73333333329999995" blue="0.77647058820000003" alpha="1" colorSpace="calibratedRGB"/>
                                                                     <nil key="highlightedColor"/>
@@ -2626,7 +2630,7 @@
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WfX-Ue-cXi">
                                                 <rect key="frame" x="10" y="450" width="394" height="40"/>
                                                 <subviews>
-                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_myAddresses" translatesAutoresizingMaskIntoConstraints="NO" id="0Xx-2v-NGI">
+                                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ic_signOut" translatesAutoresizingMaskIntoConstraints="NO" id="0Xx-2v-NGI">
                                                         <rect key="frame" x="2" y="2" width="30" height="36"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" constant="30" id="rSM-b6-Hne"/>
@@ -2869,20 +2873,24 @@
                                         </constraints>
                                     </imageView>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="eLn-Ng-CPT">
-                                        <rect key="frame" x="140" y="50" width="254" height="100"/>
+                                        <rect key="frame" x="140" y="57.5" width="254" height="85"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="DQJ-PH-Y94">
-                                                <rect key="frame" x="0.0" y="0.0" width="254" height="30"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="254" height="25"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xe6-Aa-x8L">
-                                                        <rect key="frame" x="0.0" y="0.0" width="43.5" height="30"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="229" height="25"/>
                                                         <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="20"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="822-F3-iBs">
-                                                        <rect key="frame" x="43.5" y="0.0" width="210.5" height="30"/>
-                                                        <state key="normal" title="Button"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="trailing" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="822-F3-iBs">
+                                                        <rect key="frame" x="229" y="0.0" width="25" height="25"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="25" id="ODy-2W-yax"/>
+                                                            <constraint firstAttribute="width" constant="25" id="aNA-4X-58W"/>
+                                                        </constraints>
+                                                        <state key="normal" image="ic_edit"/>
                                                         <connections>
                                                             <action selector="editProfileButtonPressed:" destination="yTb-AB-Zxj" eventType="touchUpInside" id="5rS-tR-mHg"/>
                                                         </connections>
@@ -2890,13 +2898,13 @@
                                                 </subviews>
                                             </stackView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="vR1-fY-DHt">
-                                                <rect key="frame" x="0.0" y="35" width="254" height="30"/>
+                                                <rect key="frame" x="0.0" y="30" width="254" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="  " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="Xl6-n4-X9T">
-                                                <rect key="frame" x="0.0" y="70" width="254" height="30"/>
+                                                <rect key="frame" x="0.0" y="60" width="254" height="25"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -2948,6 +2956,7 @@
                         <outlet property="tabbarMyFavouriteView" destination="aaz-Qp-B9s" id="M7e-wa-iyk"/>
                         <outlet property="tabbarMyProfileView" destination="INs-lX-YQe" id="yUx-lA-YRg"/>
                         <outlet property="tabbarView" destination="OoL-aK-36H" id="WlO-EB-wYp"/>
+                        <outlet property="topView" destination="lwI-LR-EN7" id="Uip-WB-n5x"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MaR-8W-8k1" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -4793,6 +4802,7 @@
         <image name="ic_TabbarMainPageSelected" width="38" height="38"/>
         <image name="ic_aboutUs" width="31" height="31"/>
         <image name="ic_backButton" width="24" height="24"/>
+        <image name="ic_edit" width="88" height="88"/>
         <image name="ic_heart" width="36" height="31.5"/>
         <image name="ic_invite" width="31" height="31"/>
         <image name="ic_kurye" width="31" height="30"/>
@@ -4802,6 +4812,7 @@
         <image name="ic_previousOrder" width="31" height="31"/>
         <image name="ic_rightArrow" width="6" height="9"/>
         <image name="ic_securitySettings" width="31" height="31"/>
+        <image name="ic_signOut" width="86" height="86"/>
         <image name="ic_supportLine" width="31" height="31"/>
         <image name="ic_tabbarCart" width="33.5" height="41"/>
         <image name="ic_tabbarCartSelected" width="33.5" height="41"/>

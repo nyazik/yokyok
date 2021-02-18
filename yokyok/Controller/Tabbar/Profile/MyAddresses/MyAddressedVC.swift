@@ -15,6 +15,7 @@ class MyAddressedVC: UIViewController {
     @IBOutlet weak var myAddressedView: UIView!
     
     var addressesArray = [AllAddressesDetailResponse]()
+    var defaultAddress = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -89,7 +90,8 @@ class MyAddressedVC: UIViewController {
                         if addressResponse.data?.addresses?.isEmpty == false {
                             self.addressesArray = (addressResponse.data?.addresses)!
                             print(self.addressesArray)
-
+                            self.defaultAddress = (addressResponse.data?.default_id)!
+                            print(self.defaultAddress)
                             self.myAddressedTableView.reloadData()
                             
                             self.addressedTableViewHeightConstraint.constant = CGFloat.greatestFiniteMagnitude
@@ -180,6 +182,7 @@ extension MyAddressedVC : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("cell")
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MyAddressCell
+        //cell.select(defaultAddress)
         cell.addressTitleLabel.text = addressesArray[indexPath.row].title
         cell.districtLabel.text = addressesArray[indexPath.row].county_name
         cell.addressLabel.text = addressesArray[indexPath.row].address
@@ -199,6 +202,8 @@ extension MyAddressedVC : UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(identifier: "AddEditAddressVC") as! AddEditAddressVC
+        vc.isNewAddress = false
+        vc.districtName = addressesArray[indexPath.row].county_name!
         vc.addressID = addressesArray[indexPath.row].id!
         vc.addressTitle = addressesArray[indexPath.row].title!
         vc.address = addressesArray[indexPath.row].address!

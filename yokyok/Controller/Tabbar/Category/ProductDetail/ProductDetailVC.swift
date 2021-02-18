@@ -26,7 +26,7 @@ class ProductDetailVC: UIViewController {
     
     var productID = 0
     var itemArray = [Cart]()
-    var currentStepperValue = 0
+    var currentStepperValue = 1
     var contentOfCart = ""
     var modelConvertToJson: [modelConverToJsonResponse] = []
     
@@ -52,7 +52,7 @@ class ProductDetailVC: UIViewController {
         
         addToCartButton.layer.cornerRadius = addToCartButton.frame.height / 2
         
-        productQuantityStepper.minimumValue = 1
+        productQuantityStepper.value = 1
     }
     
     @IBAction func currentValueOfStepper(_ sender: UIControl) {
