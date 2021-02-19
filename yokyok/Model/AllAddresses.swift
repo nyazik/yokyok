@@ -7,18 +7,18 @@
 
 import Foundation
 
-struct AllAddressesResponse: Codable {
+struct AllAddressesResponse: Decodable {
     let status: Bool
     let message: String?
     let data: AllAddressesDataResponse?
 }
 
-struct AllAddressesDataResponse: Codable {
+struct AllAddressesDataResponse: Decodable {
     let default_id: Int?
     let addresses: [AllAddressesDetailResponse]?
 }
 
-struct AllAddressesDetailResponse: Codable {
+struct AllAddressesDetailResponse: Decodable {
     let id: Int?
     let title: String?
     let address: String?

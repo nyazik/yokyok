@@ -1,20 +1,20 @@
 //
-//  GetHistoricalOrders.swift
+//  MakeOrder.swift
 //  yokyok
 //
-//  Created by Nazik on 14.02.2021.
+//  Created by Nazik on 19.02.2021.
 //
 
 import Foundation
 
-struct GetHistoricalOrders: Codable {
+struct MakeOrder: Codable {
     let status: Bool
     let message: String?
     let last_page: Int?
-    let data: [GetHistoricalDataResponse?]
+    let data: [MakeOrderDataResponse?]
 }
 
-struct GetHistoricalDataResponse: Codable {
+struct MakeOrderDataResponse: Codable {
     let id: Int?
     let address_title: String?
     let address: String?

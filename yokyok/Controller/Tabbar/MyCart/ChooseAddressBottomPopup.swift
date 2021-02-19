@@ -40,10 +40,12 @@ class ChooseAddressBottomPopup: BottomPopupViewController {
         savedAddressesTableView.delegate = self
         
         getAddresses()
+        
     }
     
    
     //MARK:- NETWORK
+    
     @objc func getAddresses() {
         
         let accessToken = UserDefaults.standard.string(forKey: "Autherization")!
@@ -68,9 +70,9 @@ class ChooseAddressBottomPopup: BottomPopupViewController {
                 return
             }
             
-            if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                //print(dataString)
-            }
+//            if let data = data, let dataString = String(data: data, encoding: .utf8) {
+//                print(dataString)
+//            }
             
             guard let data = data else {return}
             
@@ -118,9 +120,10 @@ class ChooseAddressBottomPopup: BottomPopupViewController {
         }
         task.resume()
     }
+    
+    
 
 }
-
 extension ChooseAddressBottomPopup : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return addressesArray.count
@@ -139,9 +142,17 @@ extension ChooseAddressBottomPopup : UITableViewDataSource, UITableViewDelegate 
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        //dismiss(animated: true, completion: nil)
+        print(addressesArray[indexPath.row].id)
+//        NotificationCenter.default.post(name: .notificationA, object: nil)
+        
+        if let presenter = presentingViewController as? PaymentScreenVC {
+//            presenter.sampleID = addressesArray[indexPath.row].id!
+            presenter.getSpesificAddress(id: addressesArray[indexPath.row].id!)
+        }
+        
         dismiss(animated: true, completion: nil)
-//        paymentScrenVC.addressTitleLabel.text = addressTitle
-//        paymentScrenVC.districtLAbel.text = district
-//        paymentScrenVC.addressLabel.text = address
     }
 }
+
+

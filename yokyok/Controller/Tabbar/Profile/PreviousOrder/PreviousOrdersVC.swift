@@ -10,7 +10,7 @@ import UIKit
 class PreviousOrdersVC: UIViewController {
     
     @IBOutlet weak var previousOrderTableView: UITableView!
-    
+    var historicalOrdersArray = [GetHistoricalDataResponse?]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,13 +60,13 @@ class PreviousOrdersVC: UIViewController {
                 let productResponse = try JSONDecoder().decode(GetHistoricalOrders.self, from: data)
 
                 if productResponse.status{
-                    DispatchQueue.main.async {
+                    DispatchQueue.main.async { [self] in
                         if productResponse.data.isEmpty == false {
-                            
-                            
+                            historicalOrdersArray = productResponse.data
+                            print("historicalOrdersArray\(historicalOrdersArray)")
 //                            self.productsArray = productResponse.data
 //                            print(self.productsArray)
-//                            self.popularProductsCollectionView.reloadData()
+                            self.previousOrderTableView.reloadData()
 
                         } else {
                             print("data yok")
@@ -98,21 +98,32 @@ class PreviousOrdersVC: UIViewController {
         }
         task.resume()
     }
+    
+    
 }
 
 extension PreviousOrdersVC : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 10
+        return historicalOrdersArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! PreviousOrderCell
+        cell.previoousOrderDateLabel.text = historicalOrdersArray[indexPath.row]?.created_at
+        cell.addressTitleLabel.text = historicalOrdersArray[indexPath.row]?.address_title
+        cell.addressLabel.text = historicalOrdersArray[indexPath.row]?.address
+        cell.previousOrderPriceLabel.text = "\((historicalOrdersArray[indexPath.row]?.total_price!)!) ₺"
         cell.configureCell()
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = self.storyboard?.instantiateViewController(identifier: "PreviousOrderDetailVC") as! PreviousOrderDetailVC
+        vc.orderDate = historicalOrdersArray[indexPath.row]!.created_at
+        vc.orderAddressTitle = (historicalOrdersArray[indexPath.row]?.address_title)!
+        vc.orderAddress = (historicalOrdersArray[indexPath.row]?.address)!
+        vc.previousOrderId = (historicalOrdersArray[indexPath.row]?.id)!
+        vc.totalPrice = (historicalOrdersArray[indexPath.row]?.total_price)!
         vc.modalPresentationStyle = .fullScreen
         self.present(vc, animated: true, completion: nil)
     }

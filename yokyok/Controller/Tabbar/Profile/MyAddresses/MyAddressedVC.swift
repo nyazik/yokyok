@@ -94,6 +94,17 @@ class MyAddressedVC: UIViewController {
                             print(self.defaultAddress)
                             self.myAddressedTableView.reloadData()
                             
+                            self.defaultAddress = addressResponse.data!.default_id!
+
+                            
+                            for i in self.addressesArray {
+                                if i.id! == self.defaultAddress {
+                                    print("found")
+                                    print("id: \(i.id!)")
+                                    break
+                                }
+                            }
+                            
                             self.addressedTableViewHeightConstraint.constant = CGFloat.greatestFiniteMagnitude
                             self.myAddressedTableView.reloadData()
                             self.myAddressedTableView.layoutIfNeeded()
@@ -170,23 +181,36 @@ class MyAddressedVC: UIViewController {
         }
         task.resume()
     }
+    
+    
 
 }
 
 extension MyAddressedVC : UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("**\(addressesArray.count)")
         return addressesArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        print("cell")
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! MyAddressCell
         //cell.select(defaultAddress)
-        cell.addressTitleLabel.text = addressesArray[indexPath.row].title
-        cell.districtLabel.text = addressesArray[indexPath.row].county_name
-        cell.addressLabel.text = addressesArray[indexPath.row].address
-        cell.configureCell()
+        if addressesArray[indexPath.row].id == defaultAddress{
+            cell.cellView.layer.borderColor = UIColor.orange.cgColor
+            cell.cellView.layer.borderWidth = 1
+            cell.cellView.layer.cornerRadius = 10
+            cell.cellView.backgroundColor = .white
+            cell.addressTitleLabel.text = addressesArray[indexPath.row].title
+            cell.districtLabel.text = addressesArray[indexPath.row].county_name
+            cell.addressLabel.text = addressesArray[indexPath.row].address
+            
+        } else {
+            cell.addressTitleLabel.text = addressesArray[indexPath.row].title
+            cell.districtLabel.text = addressesArray[indexPath.row].county_name
+            cell.addressLabel.text = addressesArray[indexPath.row].address
+            cell.configureCell()
+        }
+        
         
         return cell
     }

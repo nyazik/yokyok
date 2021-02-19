@@ -49,6 +49,7 @@ class MyCartVC: UIViewController {
         addGestureRecognizer(view: tabbarMainPageView)
         
         loadItems()
+        print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -94,6 +95,7 @@ class MyCartVC: UIViewController {
     @IBAction func payButtonPressed(_ sender: UIButton) {
         if totalOrderPrice != 0 {
             let vc = self.storyboard?.instantiateViewController(identifier: "PaymentScreenVC") as! PaymentScreenVC
+            vc.contentOfCart = contentOfCart
             vc.modalPresentationStyle = .fullScreen
             self.present(vc, animated: false, completion: nil)
         } else {
@@ -130,6 +132,14 @@ class MyCartVC: UIViewController {
             calculateCart()
         }
         
+    }
+    
+    func saveItems(){
+        do{
+            try context.save()
+        }catch{
+            print("error saving context\(error)")
+        }
     }
     
     func calculateCart() {
@@ -224,66 +234,18 @@ extension MyCartVC : UITableViewDataSource, UITableViewDelegate {
     
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-//        if editingStyle == .delete {
-//            context.delete(itemArray[indexPath.row])
-//            do {
-//              try saveItems()
-//                //tableView.deleteRows(at: [indexPath], with: .automatic)
-//              //tableView.reloadData()
-//            } catch let error as NSError {
-//              print("Could not save. \(error), \(error.userInfo)")
-//            }
-//          }
-        
-//        if editingStyle == .delete {
-//            print("Deleted")
-//            tableView.deleteRows(at: [indexPath], with: .automatic)
-//            self.itemArray.remove(at: indexPath.row)
-//            context.delete(itemArray[indexPath.row])
-//            saveItems()
-//        }
-        //tableView.reloadData()
-        
         if editingStyle == .delete {
+            print("deleted")
             context.delete(itemArray[indexPath.row])
-            do {
-              try context.save()
-              tableView.reloadData()
-            } catch let error as NSError {
-              print("Could not save. \(error), \(error.userInfo)")
-            }
+            saveItems()
+            cartArray.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            
           }
         
-//        if editingStyle == .delete {
-//            print("Deleted")
-//
-//            self.context.delete(itemArray[indexPath.row])
-//            self.itemArray.remove(at: indexPath.row)
-//            tableView.reloadData()
-//            //          saveItems()
-//            //          self.itemArray.remove(at: indexPath.row)
-//            self.mayCartTableView.deleteRows(at: [indexPath], with: .automatic)
-//        }
-        
-        
-        
-        //        if editingStyle == .delete {
-        //            print("Deleted")
-        //            itemArray.remove(at: indexPath.row)
-        //            context.delete(itemArray[indexPath.row])
-        //            //tableView.deleteRows(at: [indexPath], with: .automatic)
-        //
-        //        }
-        //        tableView.reloadData()
     }
     
-    func saveItems(){
-        do{
-            try context.save()
-        }catch{
-            print("error saving context\(error)")
-        }
-    }
+    
     
     
     

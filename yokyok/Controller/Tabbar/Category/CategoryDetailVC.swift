@@ -53,6 +53,7 @@ class CategoryDetailVC: UIViewController {
         
         // Prepare URL
         let url = URL(string: BaseURL.baseURL + "products?category_id=\(category_id!)&page=\(pageIndex)")
+        print("products?category_id=\(category_id!)&page=\(pageIndex)")
         guard let requestUrl = url else { fatalError() }
         // print("products?category_id=\(category_id!)&page=\(pageIndex)")
         // Prepare URL Request Object
@@ -91,7 +92,10 @@ class CategoryDetailVC: UIViewController {
                             if self.productsArray.isEmpty {
                                 self.productsArray = productResponse.data
                             } else {
-                                self.productsArray.append(contentsOf: productResponse.data)
+                                //self.isLoadingMoreItems = false
+                                
+                                updatePhotosAfterFetching(productResponse.data)
+                                //self.productsArray.append(contentsOf: productResponse.data)
 
                             }
                             self.categoryDetailCollectionView.reloadData()
@@ -101,11 +105,9 @@ class CategoryDetailVC: UIViewController {
                             print("data yok")
                         }
 
-                        //                        self.removeViewsForAnimation()
                     }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        //                        self.removeViewsForAnimation()
                         let alert = UIAlertController(title: "Hata", message: productResponse.message, preferredStyle: .alert)
                         let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
                         alert.addAction(ok)
@@ -207,14 +209,23 @@ class CategoryDetailVC: UIViewController {
         guard !isLoadingMoreItems else { return }
         if categoryDetailCollectionView.contentOffset.y >= categoryDetailCollectionView.contentSize.height - categoryDetailCollectionView.bounds.size.height{
             
-            isLoadingMoreItems = false
-            pageIndex += 1
-            getProducts()
+            isLoadingMoreItems = true
+            print("isLoadingMoreItems")
+            if pageIndex <= lastPage {
+                print("pageIndex\(pageIndex)")
+                print("lastPage\(lastPage)")
+                pageIndex += 1
+                getProducts()
+            } else {
+                print("finish")
+            }
+            
         }
     }
     
     func updatePhotosAfterFetching(_ product: [ProductDataResponse]) {
         isLoadingMoreItems = false
+        print("isLoadingMoreItems")
         self.productsArray.append(contentsOf: product)
         categoryDetailCollectionView.reloadData()
     }
@@ -261,8 +272,13 @@ extension CategoryDetailVC : UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if collectionView == categoriesCollectionView {
-            var category_id = (categoriesArray[indexPath.item]?.id)!
-            
+            self.category_id = (categoriesArray[indexPath.item]?.id)!
+            print("category_id\(category_id)")
+            categoryDetailCollectionView.reloadData()
+            self.productsArray = []
+            getProducts()
+            categoryDetailCollectionView.reloadData()
+
         } else {
             let vc = self.storyboard?.instantiateViewController(identifier: "ProductDetailVC") as! ProductDetailVC
             vc.productID = (productsArray[indexPath.item]?.id)!
