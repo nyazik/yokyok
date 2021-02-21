@@ -27,13 +27,12 @@ class MyCartVC: UIViewController {
     
     var totalOrderPrice = 0
     var minimumAmount = 0
-    
+    var cartQuantity = 0
+    var contentOfCart = ""
     var cartArray = [CartProductsDetailResponse]()
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     var itemArray = [Cart]()
     var modelConvertToJson: [modelConverToJsonResponse] = []
-    var contentOfCart = ""
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -50,6 +49,8 @@ class MyCartVC: UIViewController {
         
         loadItems()
         print(FileManager.default.urls(for: .documentDirectory, in: .userDomainMask))
+        
+
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -82,6 +83,7 @@ class MyCartVC: UIViewController {
     }
     
     func setupLayouts() {
+        
         invoiceView.addShadow(color: .lightGray, opacity: 0.5, radius: 5)
         invoiceView.layer.cornerRadius = 10
         
@@ -90,7 +92,9 @@ class MyCartVC: UIViewController {
         tabbarView.layer.borderColor = UIColor.lightGray.cgColor
         
         payButton.layer.cornerRadius = payButton.frame.height / 2
+        
     }
+    
     
     @IBAction func payButtonPressed(_ sender: UIButton) {
         if totalOrderPrice != 0 {
@@ -106,10 +110,13 @@ class MyCartVC: UIViewController {
         }
     }
     
-    func loadItems() {
+    @objc func loadItems() {
         
         let request : NSFetchRequest<Cart> = Cart.fetchRequest()
         do{
+            let count = try context.count(for: request)
+            print("count\(count)")
+            cartQuantity = count
             itemArray = try context.fetch(request)
             
             for i in itemArray {
@@ -130,6 +137,7 @@ class MyCartVC: UIViewController {
         }
         if itemArray.count != 0 {
             calculateCart()
+            
         }
         
     }
@@ -142,7 +150,7 @@ class MyCartVC: UIViewController {
         }
     }
     
-    func calculateCart() {
+    @objc func calculateCart() {
         let accessToken = UserDefaults.standard.string(forKey: "Autherization")!
         
         // Prepare URL
@@ -174,7 +182,7 @@ class MyCartVC: UIViewController {
             }
             
             if let data = data, let dataString = String(data: data, encoding: .utf8) {
-                print(dataString)
+                print("dataString\(dataString)")
             }
             
             guard let data = data else {return}
@@ -188,13 +196,14 @@ class MyCartVC: UIViewController {
                     DispatchQueue.main.async { [self] in
                         self.total_basket_priceLabel.text = "\((calculateCartResponse.data?.total_basket_price!)!) ₺"
                         totalOrderPrice = Int((calculateCartResponse.data?.total_basket_price)!) ?? 0
-                        print(totalOrderPrice)
+                        print("totalOrderPrice\(totalOrderPrice)")
                         self.total_products_priceLabel.text = "\((calculateCartResponse.data?.total_products_price!)!) ₺"
                         self.courierPriceLabel.text = "\((calculateCartResponse.data?.courier_price!)!) ₺"
                         self.minimumAmountLabel.text = "\((calculateCartResponse.data?.address.min_price!)!) ₺"
                         self.cartArray = (calculateCartResponse.data?.products)!
                         self.mayCartTableView.reloadData()
-                        
+                        //viewDidLoad()
+                        print("calculate")
                     }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
@@ -218,6 +227,7 @@ class MyCartVC: UIViewController {
 }
 
 extension MyCartVC : UITableViewDataSource, UITableViewDelegate {
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return cartArray.count
     }
@@ -232,21 +242,22 @@ extension MyCartVC : UITableViewDataSource, UITableViewDelegate {
         return cell
     }
     
-    
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        
         if editingStyle == .delete {
             print("deleted")
             context.delete(itemArray[indexPath.row])
             saveItems()
             cartArray.remove(at: indexPath.row)
             tableView.deleteRows(at: [indexPath], with: .fade)
-            
-          }
-        
+//          NotificationCenter.default.post(name: .updatePrice, object: nil)
+            print("cartArray\(cartArray)")
+            //calculateCart()
+        }
+        //viewDidLoad()
+        //loadItems()
     }
     
     
-    
-    
-    
 }
+

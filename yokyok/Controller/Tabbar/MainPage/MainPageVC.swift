@@ -7,9 +7,11 @@
 
 import UIKit
 import SDWebImage
+import ShimmerSwift
 
 class MainPageVC: UIViewController, UISearchBarDelegate {
     
+    @IBOutlet weak var backgroundShimmerView: ShimmeringView!
     @IBOutlet weak var searchProductSearchBar: UISearchBar!
     @IBOutlet weak var bannerCollectionView: UICollectionView!
     @IBOutlet weak var popularProductsCollectionView: UICollectionView!
@@ -52,6 +54,7 @@ class MainPageVC: UIViewController, UISearchBarDelegate {
         getCategories()
         getProducts()
         getSlider()
+        
     }
     
     func addGestureRecognizer(view: UIView) {
@@ -268,6 +271,7 @@ class MainPageVC: UIViewController, UISearchBarDelegate {
     //MARK:- NETWORKING
     func getSlider() {
         //addViewsForAnimation()
+        backgroundShimmerView.isShimmering = true
         let accessToken = UserDefaults.standard.string(forKey: "Autherization")!
         
         // Prepare URL
@@ -312,10 +316,12 @@ class MainPageVC: UIViewController, UISearchBarDelegate {
                             print("data yok")
                         }
 //                        self.removeViewsForAnimation()
+                        self.backgroundShimmerView.isShimmering = false
                     }
                 } else {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
 //                        self.removeViewsForAnimation()
+                        self.backgroundShimmerView.isShimmering = false
                         let alert = UIAlertController(title: "Hata", message: productResponse.message, preferredStyle: .alert)
                         let ok = UIAlertAction(title: "Tamam", style: .default, handler: nil)
                         alert.addAction(ok)
@@ -442,4 +448,10 @@ extension MainPageVC : UICollectionViewDataSource, UICollectionViewDelegate, UIC
         }
     }
     
+}
+
+
+extension Notification.Name {
+    static let updateQuantity = Notification.Name(rawValue: "updateQuantity")
+
 }

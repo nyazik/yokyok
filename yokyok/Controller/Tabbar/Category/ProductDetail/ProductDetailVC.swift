@@ -21,7 +21,6 @@ class ProductDetailVC: UIViewController {
     @IBOutlet weak var productDescriptionView: UIView!
     @IBOutlet weak var addToCartButton: UIButton!
     @IBOutlet weak var productTiteLabel: UILabel!
-    
     let context = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     
     var productID = 0
@@ -73,6 +72,8 @@ class ProductDetailVC: UIViewController {
             let addToCart = Cart(context: context)
             addToCart.product_id = Int32(productID)
             addToCart.product_quantity = Int32(currentStepperValue)
+            
+            NotificationCenter.default.post(name: .updateQuantity, object: nil)
             
             dismiss(animated: true, completion: nil)
             saveItems()
@@ -232,6 +233,8 @@ class ProductDetailVC: UIViewController {
     func loadItems() {
         let request : NSFetchRequest<Cart> = Cart.fetchRequest()
         do{
+            let count = try context.count(for: request)
+            print("count\(count)")
             itemArray = try context.fetch(request)
             
             for i in itemArray {

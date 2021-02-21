@@ -433,7 +433,7 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CD9-Va-54W">
                                 <rect key="frame" x="0.0" y="104" width="414" height="792"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIC-Eg-owx">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="PIC-Eg-owx" customClass="ShimmeringView" customModule="ShimmerSwift">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1033.5"/>
                                         <subviews>
                                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="rWd-GL-zNf">
@@ -452,7 +452,7 @@
                                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="cell" id="MUW-5l-NyO" customClass="BannerCell" customModule="yokyok" customModuleProvider="target">
                                                         <rect key="frame" x="0.0" y="0.0" width="409" height="200"/>
                                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nB7-Qo-YoR">
+                                                        <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="nB7-Qo-YoR" customClass="ShimmeringView" customModule="ShimmerSwift">
                                                             <rect key="frame" x="0.0" y="0.0" width="409" height="200"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <subviews>
@@ -470,6 +470,7 @@
                                                         <size key="customSize" width="409" height="200"/>
                                                         <connections>
                                                             <outlet property="bannerImageView" destination="cYv-bY-brW" id="kRq-qY-oQn"/>
+                                                            <outlet property="bannerShimmerView" destination="nB7-Qo-YoR" id="5PO-rY-TqX"/>
                                                         </connections>
                                                     </collectionViewCell>
                                                 </cells>
@@ -901,6 +902,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="backgroundShimmerView" destination="PIC-Eg-owx" id="hnZ-1T-ddT"/>
                         <outlet property="bannerCollectionView" destination="rWd-GL-zNf" id="0Kc-L2-w2F"/>
                         <outlet property="pageIndicatorPageControl" destination="FQh-dI-kJZ" id="N3m-18-CJ5"/>
                         <outlet property="popularCategoriesCollectionView" destination="980-jI-JXu" id="DDC-BS-rBZ"/>

@@ -6,9 +6,11 @@
 //
 
 import UIKit
+import ShimmerSwift
 
 class BannerCell: UICollectionViewCell {
     @IBOutlet weak var bannerImageView: UIImageView!
+    @IBOutlet weak var bannerShimmerView: ShimmeringView!
     
     func configureCell () {
         bannerImageView.layer.cornerRadius = 10
